@@ -6,6 +6,7 @@
     "build:1-migrate": "prisma migrate deploy",
     "build:2-build": "next build",
     "build": "run-s build:*",
+    "db-generate": "prisma generate",
     "db-up": "docker-compose up -d",
     "db-seed": "prisma db seed",
     "db-migrate-dev": "yarn prisma migrate dev",
@@ -15,8 +16,9 @@
     "start": "next start",
     "lint": "eslint src",
     "lint-fix": "yarn lint --fix",
+    "xstate-typegen": "xstate typegen \"./src/**/*.ts?(x)\"",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
-    "postinstall": "prisma generate"
+    "postinstall": "run-s db-generate xstate-typegen"
   },
   "prisma": {
     "seed": "yarn ts-node prisma/seed.ts"
@@ -35,6 +37,7 @@
     "@trpc/next": "^9.27.0",
     "@trpc/react": "^9.27.0",
     "@trpc/server": "^9.27.0",
+    "@xstate/react": "^3.0.1",
     "clsx": "^1.2.1",
     "framer-motion": "^6",
     "next": "^12.2.5",
@@ -42,6 +45,7 @@
     "react-dom": "^18.2.0",
     "react-query": "^3.39.2",
     "superjson": "^1.9.1",
+    "xstate": "^4.33.1",
     "zod": "^3.18.0"
   },
   "devDependencies": {
@@ -50,6 +54,7 @@
     "@types/react": "^18.0.17",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
+    "@xstate/cli": "^0.3.2",
     "eslint": "^8.21.0",
     "eslint-config-next": "^12.2.5",
     "eslint-config-prettier": "^8.5.0",
