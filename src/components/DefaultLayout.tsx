@@ -8,8 +8,8 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   return (
     <>
       <Head>
-        <title>Prisma Starter</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>React CPH</title>
+        <link rel="icon" href="/favicon.png" />
       </Head>
 
       <main>{children}</main>

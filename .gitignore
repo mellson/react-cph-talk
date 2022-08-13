@@ -5,9 +5,6 @@
 /.pnp
 .pnp.js
 
-# testing
-/coverage
-
 # next.js
 /.next/
 /out/
@@ -27,7 +24,6 @@ yarn-error.log*
 # local env files
 .env.local
 .env.development.local
-.env.test.local
 .env.production.local
 
 # vercel
@@ -36,7 +32,3 @@ yarn-error.log*
 *.db
 *.db-journal
 prisma/_sqlite/migrations
-
-
-# testing
-playwright/test-results
