@@ -9,20 +9,20 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  Array.from(Array(100).keys()).forEach(async (index) => {
-    const id = `${index + 1}`;
-    await prisma.user.upsert({
-      where: {
-        id,
-      },
-      create: {
-        id,
-        name: faker.name.fullName(),
-        avatar: faker.internet.avatar(),
-      },
-      update: {},
-    });
-  });
+  const numberOfUsersWeWant = 100;
+  const numberOfExistingUsers = await prisma.user.count();
+
+  // Create fake users so we always have 100 users
+  Array.from(Array(numberOfUsersWeWant - numberOfExistingUsers).keys()).forEach(
+    async () => {
+      await prisma.user.create({
+        data: {
+          name: faker.name.fullName(),
+          avatar: faker.internet.avatar(),
+        },
+      });
+    },
+  );
 }
 
 main()
