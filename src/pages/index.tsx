@@ -3,7 +3,7 @@ import { trpc } from '../utils/trpc';
 import { NextPageWithLayout } from './_app';
 
 const IndexPage: NextPageWithLayout = () => {
-  const usersQuery = trpc.useQuery(['user.all']);
+  const usersQuery = trpc.proxy.user.all.useQuery();
 
   return (
     <>

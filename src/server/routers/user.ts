@@ -3,10 +3,9 @@
  * This is an example router, you can delete this file and then update `../pages/api/trpc/[trpc].tsx`
  */
 import { Prisma } from '@prisma/client';
-import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-import { createRouter } from '~/server/createRouter';
 import { prisma } from '~/server/prisma';
+import { t } from '../trpc';
 
 /**
  * Default selector for User.
@@ -19,49 +18,23 @@ const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
   avatar: true,
 });
 
-export const userRouter = createRouter()
-  // read
-  .query('all', {
-    async resolve() {
-      /**
-       * For pagination you can have a look at this docs site
-       * @link https://trpc.io/docs/useInfiniteQuery
-       */
-
-      return prisma.user.findMany({
-        select: defaultUserSelect,
-      });
-    },
-  })
-  .query('byId', {
-    input: z.object({
-      id: z.string(),
+export const userRouter = t.router({
+  all: t.procedure.query(() =>
+    prisma.user.findMany({
+      select: defaultUserSelect,
     }),
-    async resolve({ input }) {
-      const { id } = input;
-      const user = await prisma.user.findUnique({
-        where: { id },
-        select: defaultUserSelect,
-      });
-      if (!user) {
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: `No user with id '${id}'`,
-        });
-      }
-      return user;
-    },
-  })
-  .query('search', {
-    input: z.object({
-      query: z.string(),
-    }),
-    async resolve({ input }) {
+  ),
+  search: t.procedure
+    .input(
+      z.object({
+        query: z.string(),
+      }),
+    )
+    .query(({ input }) => {
       const { query } = input;
-      const users = await prisma.user.findMany({
+      return prisma.user.findMany({
         where: { name: { contains: query, mode: 'insensitive' } },
         select: defaultUserSelect,
       });
-      return users;
-    },
-  });
+    }),
+});
