@@ -1,9 +1,14 @@
 import { Avatar, Box, Heading, HStack, VStack } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { trpc } from '../utils/trpc';
 import { NextPageWithLayout } from './_app';
 
 const IndexPage: NextPageWithLayout = () => {
-  const usersQuery = trpc.useQuery(['user.all']);
+  const usersQuery = trpc.proxy.user.all.useQuery();
+
+  useEffect(() => {
+    console.log(usersQuery.data);
+  }, []);
 
   return (
     <>
