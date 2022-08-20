@@ -1,4 +1,4 @@
-import { httpBatchLink, loggerLink } from '@trpc/client';
+import { createTRPCProxyClient, httpBatchLink, loggerLink } from '@trpc/client';
 import { setupTRPC } from '@trpc/next';
 import type { inferProcedureInput, inferProcedureOutput } from '@trpc/server';
 import { NextPageContext } from 'next';
@@ -6,6 +6,11 @@ import superjson from 'superjson';
 // ℹ️ Type-only import:
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html#type-only-imports-and-export
 import type { AppRouter } from '~/server/routers/_app';
+
+export const client = createTRPCProxyClient<AppRouter>({
+  url: getBaseUrl() + '/api/trpc',
+  transformer: superjson,
+});
 
 export function getBaseUrl() {
   if (typeof window !== 'undefined') {
