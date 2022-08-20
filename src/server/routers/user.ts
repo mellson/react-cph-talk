@@ -3,8 +3,10 @@
  * This is an example router, you can delete this file and then update `../pages/api/trpc/[trpc].tsx`
  */
 import { Prisma } from '@prisma/client';
+import { z } from 'zod';
 import { prisma } from '~/server/prisma';
 import { t } from '../trpc';
+import { waitAndMaybeThrowError } from '../utils';
 
 /**
  * Default selector for User.
@@ -15,6 +17,7 @@ const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
   id: true,
   name: true,
   avatar: true,
+  isFriend: true,
 });
 
 export const userRouter = t.router({
@@ -24,20 +27,26 @@ export const userRouter = t.router({
     }),
   ),
   search: t.procedure
-    // .input(
-    //   z.object({
-    //     query: z.string(),
-    //   }),
-    // )
-    .input((val: unknown) => {
-      if (typeof val === 'string') return val;
-      throw new Error(`Invalid input: ${typeof val}`);
-    })
+    .input(
+      z.object({
+        query: z.string(),
+      }),
+    )
     .query(({ input }) => {
-      // const { val } = input;
+      const { query } = input;
       return prisma.user.findMany({
-        where: { name: { contains: input, mode: 'insensitive' } },
+        where: { name: { contains: query, mode: 'insensitive' } },
         select: defaultUserSelect,
+      });
+    }),
+  setFriend: t.procedure
+    .input(z.object({ userId: z.string(), isFriend: z.boolean() }))
+    .mutation(async ({ input }) => {
+      const { userId, isFriend } = input;
+      await waitAndMaybeThrowError();
+      return prisma.user.update({
+        data: { isFriend },
+        where: { id: userId },
       });
     }),
 });

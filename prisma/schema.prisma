@@ -11,9 +11,10 @@ generator client {
 }
 
 model User {
-  id     String @id @default(uuid())
-  name   String
-  avatar String
+  id       String  @id @default(uuid())
+  name     String
+  avatar   String
+  isFriend Boolean @default(false)
 
   // To return `Date`s intact through the API we need to add data transformers
   // https://trpc.io/docs/data-transformers
