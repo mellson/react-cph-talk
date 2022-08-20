@@ -1,30 +1,69 @@
-import { Avatar, Box, Heading, HStack, VStack } from '@chakra-ui/react';
+import {
+  Avatar,
+  Box,
+  Container,
+  Heading,
+  HStack,
+  SimpleGrid,
+  VStack,
+} from '@chakra-ui/react';
+import { createTRPCProxyClient } from '@trpc/client';
+import { AsyncSelect, chakraComponents } from 'chakra-react-select';
 import { useState } from 'react';
-import { trpc } from '../utils/trpc';
+import superjson from 'superjson';
+import { AppRouter } from '~/server/routers/_app';
+import { getBaseUrl } from '../utils/trpc';
 import { NextPageWithLayout } from './_app';
 
-const IndexPage: NextPageWithLayout = () => {
-  const usersQuery = trpc.proxy.user.all.useQuery();
+const client = createTRPCProxyClient<AppRouter>({
+  url: getBaseUrl() + '/api/trpc',
+  transformer: superjson,
+});
 
+const IndexPage: NextPageWithLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(true);
   const [isError, setIsError] = useState(false);
 
   return (
-    <>
-      <Heading>
-        Users
-        {usersQuery.status === 'loading' && '(loading)'}
-      </Heading>
-      <VStack justify="start">
-        {usersQuery.data?.map((user) => (
-          <HStack key={user.id} w="full">
-            <Avatar name={user.name} src={user.avatar} />
-            <Box>{user.name}</Box>
-          </HStack>
-        ))}
+    <Container p={8}>
+      <VStack gap={8}>
+        <Heading>
+          Stately ❤️ React CPH
+          {/* {usersQuery.status === 'loading' && '(loading)'} */}
+        </Heading>
+        <SimpleGrid columns={1} w="full">
+          <AsyncSelect
+            instanceId="usersearch"
+            loadOptions={async (query: string) => {
+              return (await client.user.search.query(query)).map((user) => ({
+                label: user.name,
+                value: user.id,
+                avatar: user.avatar,
+              }));
+            }}
+            onChange={(user) => {
+              setIsLoading(false);
+            }}
+            components={{
+              Option: (props) => {
+                return (
+                  <chakraComponents.Option {...props}>
+                    <HStack key={props.data.value} w="full">
+                      <Avatar
+                        name={props.data.avatar}
+                        src={props.data.avatar}
+                      />
+                      <Box>{props.data.label}</Box>
+                    </HStack>
+                  </chakraComponents.Option>
+                );
+              },
+            }}
+          />
+        </SimpleGrid>
       </VStack>
-    </>
+    </Container>
   );
 };
 

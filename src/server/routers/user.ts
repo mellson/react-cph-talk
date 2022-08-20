@@ -3,7 +3,6 @@
  * This is an example router, you can delete this file and then update `../pages/api/trpc/[trpc].tsx`
  */
 import { Prisma } from '@prisma/client';
-import { z } from 'zod';
 import { prisma } from '~/server/prisma';
 import { t } from '../trpc';
 
@@ -25,15 +24,19 @@ export const userRouter = t.router({
     }),
   ),
   search: t.procedure
-    .input(
-      z.object({
-        query: z.string(),
-      }),
-    )
+    // .input(
+    //   z.object({
+    //     query: z.string(),
+    //   }),
+    // )
+    .input((val: unknown) => {
+      if (typeof val === 'string') return val;
+      throw new Error(`Invalid input: ${typeof val}`);
+    })
     .query(({ input }) => {
-      const { query } = input;
+      // const { val } = input;
       return prisma.user.findMany({
-        where: { name: { contains: query, mode: 'insensitive' } },
+        where: { name: { contains: input, mode: 'insensitive' } },
         select: defaultUserSelect,
       });
     }),
