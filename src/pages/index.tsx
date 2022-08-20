@@ -1,9 +1,14 @@
 import { Avatar, Box, Heading, HStack, VStack } from '@chakra-ui/react';
+import { useState } from 'react';
 import { trpc } from '../utils/trpc';
 import { NextPageWithLayout } from './_app';
 
 const IndexPage: NextPageWithLayout = () => {
   const usersQuery = trpc.proxy.user.all.useQuery();
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   return (
     <>
