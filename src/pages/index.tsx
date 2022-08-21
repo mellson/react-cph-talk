@@ -1,31 +1,43 @@
 import {
+  Alert,
+  AlertIcon,
+  Box,
   Button,
-  Heading,
   Input,
+  Progress,
   SimpleGrid,
-  Spinner,
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { MainContainer } from '~/components/MainContainer';
 import { Toggle } from '~/components/Toggle';
 import { User } from '~/components/User';
+import { isErrorWithMessage } from '~/server/utils';
 import { client } from '~/utils/trpc';
 import { NextPageWithLayout } from './_app';
 
 const IndexPage: NextPageWithLayout = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>();
+
   const [query, setQuery] = useState('');
   const [user, setUser] = useState<User>();
   const [users, setUsers] = useState<User[]>([]);
 
   const searchUsers = async (query: string) => {
     setIsLoading(true);
-    const users = await client.user.search.query({ query });
-    setUsers(users);
-    setIsLoading(false);
+    setUser(undefined);
+    try {
+      const users = await client.user.search.query({ query });
+      setUsers(users);
+      setIsLoading(false);
+      setIsSuccess(true);
+    } catch (error) {
+      if (isErrorWithMessage(error)) {
+        setErrorMessage(error.message);
+      }
+    }
   };
 
   useEffect(() => {
@@ -36,70 +48,113 @@ const IndexPage: NextPageWithLayout = () => {
     }
   }, [query]);
 
+  useEffect(() => {
+    setIsLoading(false);
+    setIsSuccess(errorMessage === undefined);
+  }, [errorMessage]);
+
   return (
-    <MainContainer>
-      {isLoading && <Spinner />}
-      <SimpleGrid columns={1} w="full">
-        <Input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for a user"
-          size="lg"
-        />
-        {users && (
-          <VStack pt={2}>
-            {users.map((user) => (
-              <Button
-                key={user.id}
+    <>
+      {errorMessage && (
+        <Alert status="error">
+          <AlertIcon />
+          {errorMessage}
+          <Button ml={2} size="sm" onClick={() => setErrorMessage(undefined)}>
+            Clear error
+          </Button>
+        </Alert>
+      )}
+      <MainContainer isLoading={isLoading}>
+        <VStack justify="space-between" w="full" h="full">
+          <Box w="full">
+            <Input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search for a user"
+              size="lg"
+            />
+            {users && (
+              <VStack pt={2}>
+                {users.map((user) => (
+                  <Button
+                    key={user.id}
+                    w="full"
+                    size="lg"
+                    variant="outline"
+                    onClick={() => {
+                      setQuery('');
+                      setUser(user);
+                    }}
+                  >
+                    <User user={user} />
+                  </Button>
+                ))}
+              </VStack>
+            )}
+          </Box>
+          {user && (
+            <VStack gap={4} bg="blackAlpha.300" p={8} rounded="lg">
+              <User user={user} size="lg" />
+              <Progress
+                isIndeterminate={isLoading}
                 w="full"
-                size="lg"
-                variant="outline"
-                onClick={() => {
-                  setQuery('');
-                  setUser(user);
-                }}
-              >
-                <User user={user} />
-              </Button>
-            ))}
-          </VStack>
-        )}
-        {user && (
-          <VStack pt={8} gap={4}>
-            <Heading size="lg">Selected user</Heading>
-            <User user={user} />
-            <SimpleGrid columns={2}>
-              <Toggle
-                label="Friends?"
-                isChecked={user.isFriend}
-                onChange={async (checked) => {
-                  setIsLoading(true);
-                  const updatedUser = await client.user.setFriend.mutate({
-                    userId: user.id,
-                    isFriend: checked,
-                  });
-                  setUser(updatedUser);
-                  setIsLoading(false);
-                }}
+                colorScheme="blue"
+                size="sm"
+                rounded="lg"
               />
-              <Toggle
-                label="Best Friends?"
-                isChecked={user.isBestFriend}
-                onChange={async (checked) => {
-                  setIsLoading(true);
-                  const updatedUser = await client.user.setBestFriend.mutate({
-                    userId: user.id,
-                    isBestFriend: checked,
-                  });
-                  setUser(updatedUser);
-                  setIsLoading(false);
-                }}
-              />
-            </SimpleGrid>
-          </VStack>
-        )}
-      </SimpleGrid>
-    </MainContainer>
+              <SimpleGrid columns={2}>
+                <Toggle
+                  label="Friends?"
+                  disabled={!isSuccess || isLoading}
+                  isChecked={user.isFriend}
+                  onChange={async (checked) => {
+                    setIsLoading(true);
+                    try {
+                      const updatedUser =
+                        await client.user.setFriendStatus.mutate({
+                          userId: user.id,
+                          isFriend: checked,
+                          isBestFriend: user.isBestFriend,
+                        });
+                      setUser(updatedUser);
+                      setIsLoading(false);
+                      setIsSuccess(true);
+                    } catch (error) {
+                      if (isErrorWithMessage(error)) {
+                        setErrorMessage(error.message);
+                      }
+                    }
+                  }}
+                />
+                <Toggle
+                  label="Best Friends?"
+                  disabled={!isSuccess || isLoading}
+                  isChecked={user.isBestFriend}
+                  onChange={async (checked) => {
+                    setIsLoading(true);
+                    try {
+                      const updatedUser =
+                        await client.user.setFriendStatus.mutate({
+                          userId: user.id,
+                          isFriend: user.isFriend,
+                          isBestFriend: checked,
+                        });
+                      setUser(updatedUser);
+                      setIsLoading(false);
+                      setIsSuccess(true);
+                    } catch (error) {
+                      if (isErrorWithMessage(error)) {
+                        setErrorMessage(error.message);
+                      }
+                    }
+                  }}
+                />
+              </SimpleGrid>
+            </VStack>
+          )}
+        </VStack>
+      </MainContainer>
+    </>
   );
 };
 

@@ -35,30 +35,26 @@ export const userRouter = t.router({
     )
     .query(async ({ input }) => {
       const { query } = input;
-      await waitAndMaybeThrowError(100, 400);
+      await waitAndMaybeThrowError(100, 400, '😱 Search error');
       return prisma.user.findMany({
         where: { name: { contains: query, mode: 'insensitive' } },
         select: defaultUserSelect,
         take: 5,
       });
     }),
-  setFriend: t.procedure
-    .input(z.object({ userId: z.string(), isFriend: z.boolean() }))
+  setFriendStatus: t.procedure
+    .input(
+      z.object({
+        userId: z.string(),
+        isFriend: z.boolean(),
+        isBestFriend: z.boolean(),
+      }),
+    )
     .mutation(async ({ input }) => {
-      const { userId, isFriend } = input;
-      await waitAndMaybeThrowError(1000, 2500);
+      const { userId, isFriend, isBestFriend } = input;
+      await waitAndMaybeThrowError(1000, 2500, '🙀 Set friend status error');
       return prisma.user.update({
-        data: { isFriend },
-        where: { id: userId },
-      });
-    }),
-  setBestFriend: t.procedure
-    .input(z.object({ userId: z.string(), isBestFriend: z.boolean() }))
-    .mutation(async ({ input }) => {
-      const { userId, isBestFriend } = input;
-      await waitAndMaybeThrowError(1000, 2500);
-      return prisma.user.update({
-        data: { isBestFriend },
+        data: { isFriend, isBestFriend },
         where: { id: userId },
       });
     }),
