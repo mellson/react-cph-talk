@@ -7,7 +7,7 @@ const snooze = (ms: number) =>
 
 const didThisError = () => Math.random() < 0.15; //15% probability of getting true
 
-export const waitAndMaybeThrowError = async () => {
-  await snooze(randomNumberInInterval(1000, 2500));
+export const waitAndMaybeThrowError = async (min: number, max: number) => {
+  await snooze(randomNumberInInterval(min, max));
   // if (didThisError()) throw new Error('Noooo 🙀 Something went wrong');
 };

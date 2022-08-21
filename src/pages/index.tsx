@@ -1,6 +1,12 @@
-import { Heading, SimpleGrid, Spinner, VStack } from '@chakra-ui/react';
-import { AsyncSelect, chakraComponents } from 'chakra-react-select';
-import { useState } from 'react';
+import {
+  Button,
+  Heading,
+  Input,
+  SimpleGrid,
+  Spinner,
+  VStack,
+} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { MainContainer } from '~/components/MainContainer';
 import { Toggle } from '~/components/Toggle';
 import { User } from '~/components/User';
@@ -11,33 +17,53 @@ const IndexPage: NextPageWithLayout = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [query, setQuery] = useState('');
   const [user, setUser] = useState<User>();
+  const [users, setUsers] = useState<User[]>([]);
+
+  const searchUsers = async (query: string) => {
+    setIsLoading(true);
+    const users = await client.user.search.query({ query });
+    setUsers(users);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    if (query.length > 0) {
+      searchUsers(query);
+    } else {
+      setUsers([]);
+    }
+  }, [query]);
 
   return (
     <MainContainer>
+      {isLoading && <Spinner />}
       <SimpleGrid columns={1} w="full">
-        <AsyncSelect
-          instanceId="usersearch"
-          placeholder="Search for a user..."
-          noOptionsMessage={() => 'Type to search for users'}
-          loadingMessage={() => 'Loading users...'}
-          loadOptions={async (query: string) =>
-            (await client.user.search.query({ query })).map((user) => ({
-              label: user.name,
-              user: user,
-            }))
-          }
-          onChange={(option) => setUser(option?.user)}
-          components={{
-            Option: (props) => {
-              return (
-                <chakraComponents.Option {...props}>
-                  <User key={props.data.user.id} user={props.data.user} />
-                </chakraComponents.Option>
-              );
-            },
-          }}
+        <Input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for a user"
+          size="lg"
         />
+        {users && (
+          <VStack pt={2}>
+            {users.map((user) => (
+              <Button
+                key={user.id}
+                w="full"
+                size="lg"
+                variant="outline"
+                onClick={() => {
+                  setQuery('');
+                  setUser(user);
+                }}
+              >
+                <User user={user} />
+              </Button>
+            ))}
+          </VStack>
+        )}
         {user && (
           <VStack pt={8} gap={4}>
             <Heading size="lg">Selected user</Heading>
@@ -70,7 +96,6 @@ const IndexPage: NextPageWithLayout = () => {
                 }}
               />
             </SimpleGrid>
-            {isLoading && <Spinner />}
           </VStack>
         )}
       </SimpleGrid>

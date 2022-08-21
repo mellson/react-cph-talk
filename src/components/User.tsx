@@ -8,8 +8,8 @@ interface Props {
 }
 
 export const User = ({ user }: Props) => (
-  <HStack>
-    <Avatar name={user.name} src={user.avatar} />
+  <HStack w="full">
+    <Avatar name={user.name} src={user.avatar} size="sm" />
     <Box>{user.name}</Box>
   </HStack>
 );

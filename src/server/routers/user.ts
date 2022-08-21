@@ -33,18 +33,20 @@ export const userRouter = t.router({
         query: z.string(),
       }),
     )
-    .query(({ input }) => {
+    .query(async ({ input }) => {
       const { query } = input;
+      await waitAndMaybeThrowError(100, 400);
       return prisma.user.findMany({
         where: { name: { contains: query, mode: 'insensitive' } },
         select: defaultUserSelect,
+        take: 5,
       });
     }),
   setFriend: t.procedure
     .input(z.object({ userId: z.string(), isFriend: z.boolean() }))
     .mutation(async ({ input }) => {
       const { userId, isFriend } = input;
-      await waitAndMaybeThrowError();
+      await waitAndMaybeThrowError(1000, 2500);
       return prisma.user.update({
         data: { isFriend },
         where: { id: userId },
@@ -54,7 +56,7 @@ export const userRouter = t.router({
     .input(z.object({ userId: z.string(), isBestFriend: z.boolean() }))
     .mutation(async ({ input }) => {
       const { userId, isBestFriend } = input;
-      await waitAndMaybeThrowError();
+      await waitAndMaybeThrowError(1000, 2500);
       return prisma.user.update({
         data: { isBestFriend },
         where: { id: userId },
