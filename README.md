@@ -1,6 +1,6 @@
 # [Stately](https://stately.ai/) ❤️ React CPH
 
-This repo contains the demo app for a talk by [Anders Bech Mellson](https://twitter.com/andersmellson) at Copenhagen React Copenhagen's [⚛️ August meetup! ☀️](https://www.meetup.com/copenhagen-react-meetup/events/287545945/).
+This repo contains the demo app for a talk by [Anders Bech Mellson](https://twitter.com/andersmellson) at [Copenhagen React Copenhagen's](https://twitter.com/reactcph) [⚛️ August meetup! ☀️](https://www.meetup.com/copenhagen-react-meetup/events/287545945/).
 
 The repo's `main` branch contains the app's boilerplate, leaving it up to you to complete the requirements from the next section.
 

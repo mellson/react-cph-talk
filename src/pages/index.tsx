@@ -69,6 +69,7 @@ const IndexPage: NextPageWithLayout = () => {
           <Box w="full">
             <Input
               value={query}
+              disabled={!isSuccess}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search for a user"
               size="lg"
