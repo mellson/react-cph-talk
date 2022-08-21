@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, Switch } from '@chakra-ui/react';
 interface Props {
   label: string;
-  disabled: boolean;
+  disabled?: boolean;
   isChecked: boolean;
   onChange: (checked: boolean) => void;
 }

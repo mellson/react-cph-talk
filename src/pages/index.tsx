@@ -12,13 +12,10 @@ import { useEffect, useState } from 'react';
 import { MainContainer } from '~/components/MainContainer';
 import { Toggle } from '~/components/Toggle';
 import { User } from '~/components/User';
-import { isErrorWithMessage } from '~/server/utils';
 import { client } from '~/utils/trpc';
 import { NextPageWithLayout } from './_app';
 
 const IndexPage: NextPageWithLayout = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
 
   const [query, setQuery] = useState('');
@@ -26,18 +23,9 @@ const IndexPage: NextPageWithLayout = () => {
   const [users, setUsers] = useState<User[]>([]);
 
   const searchUsers = async (query: string) => {
-    setIsLoading(true);
     setUser(undefined);
-    try {
-      const users = await client.user.search.query({ query });
-      setUsers(users);
-      setIsLoading(false);
-      setIsSuccess(true);
-    } catch (error) {
-      if (isErrorWithMessage(error)) {
-        setErrorMessage(error.message);
-      }
-    }
+    const users = await client.user.search.query({ query });
+    setUsers(users);
   };
 
   useEffect(() => {
@@ -47,11 +35,6 @@ const IndexPage: NextPageWithLayout = () => {
       setUsers([]);
     }
   }, [query]);
-
-  useEffect(() => {
-    setIsLoading(false);
-    setIsSuccess(errorMessage === undefined);
-  }, [errorMessage]);
 
   return (
     <>
@@ -64,12 +47,11 @@ const IndexPage: NextPageWithLayout = () => {
           </Button>
         </Alert>
       )}
-      <MainContainer isLoading={isLoading}>
+      <MainContainer isLoading={false}>
         <VStack justify="space-between" w="full" h="full">
           <Box w="full">
             <Input
               value={query}
-              disabled={!isSuccess}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search for a user"
               size="lg"
@@ -97,7 +79,7 @@ const IndexPage: NextPageWithLayout = () => {
             <VStack gap={4} bg="blackAlpha.300" p={8} rounded="lg">
               <User user={user} size="lg" />
               <Progress
-                isIndeterminate={isLoading}
+                isIndeterminate={false}
                 w="full"
                 colorScheme="blue"
                 size="sm"
@@ -106,48 +88,28 @@ const IndexPage: NextPageWithLayout = () => {
               <SimpleGrid columns={2}>
                 <Toggle
                   label="Friends?"
-                  disabled={!isSuccess || isLoading}
                   isChecked={user.isFriend}
                   onChange={async (checked) => {
-                    setIsLoading(true);
-                    try {
-                      const updatedUser =
-                        await client.user.setFriendStatus.mutate({
-                          userId: user.id,
-                          isFriend: checked,
-                          isBestFriend: user.isBestFriend,
-                        });
-                      setUser(updatedUser);
-                      setIsLoading(false);
-                      setIsSuccess(true);
-                    } catch (error) {
-                      if (isErrorWithMessage(error)) {
-                        setErrorMessage(error.message);
-                      }
-                    }
+                    const updatedUser =
+                      await client.user.setFriendStatus.mutate({
+                        userId: user.id,
+                        isFriend: checked,
+                        isBestFriend: user.isBestFriend,
+                      });
+                    setUser(updatedUser);
                   }}
                 />
                 <Toggle
                   label="Best Friends?"
-                  disabled={!isSuccess || isLoading}
                   isChecked={user.isBestFriend}
                   onChange={async (checked) => {
-                    setIsLoading(true);
-                    try {
-                      const updatedUser =
-                        await client.user.setFriendStatus.mutate({
-                          userId: user.id,
-                          isFriend: user.isFriend,
-                          isBestFriend: checked,
-                        });
-                      setUser(updatedUser);
-                      setIsLoading(false);
-                      setIsSuccess(true);
-                    } catch (error) {
-                      if (isErrorWithMessage(error)) {
-                        setErrorMessage(error.message);
-                      }
-                    }
+                    const updatedUser =
+                      await client.user.setFriendStatus.mutate({
+                        userId: user.id,
+                        isFriend: user.isFriend,
+                        isBestFriend: checked,
+                      });
+                    setUser(updatedUser);
                   }}
                 />
               </SimpleGrid>
