@@ -1,23 +1,11 @@
-import {
-  Avatar,
-  Box,
-  FormControl,
-  FormLabel,
-  Heading,
-  HStack,
-  SimpleGrid,
-  Spinner,
-  Switch,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Heading, SimpleGrid, Spinner, VStack } from '@chakra-ui/react';
 import { AsyncSelect, chakraComponents } from 'chakra-react-select';
 import { useState } from 'react';
 import { MainContainer } from '~/components/MainContainer';
+import { Toggle } from '~/components/Toggle';
+import { User } from '~/components/User';
 import { client } from '~/utils/trpc';
 import { NextPageWithLayout } from './_app';
-
-type User = Awaited<ReturnType<typeof client.user.search.query>>[number];
 
 const IndexPage: NextPageWithLayout = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -44,42 +32,44 @@ const IndexPage: NextPageWithLayout = () => {
             Option: (props) => {
               return (
                 <chakraComponents.Option {...props}>
-                  <HStack key={props.data.user.id} w="full">
-                    <Avatar
-                      name={props.data.user.avatar}
-                      src={props.data.user.avatar}
-                    />
-                    <Box>{props.data.user.name}</Box>
-                  </HStack>
+                  <User key={props.data.user.id} user={props.data.user} />
                 </chakraComponents.Option>
               );
             },
           }}
         />
         {user && (
-          <VStack pt={4}>
-            <Heading>Selected user</Heading>
-            <Text>{user.name}</Text>
-            <Text>{user.id}</Text>
-            <FormControl display="flex" alignItems="center">
-              <FormLabel htmlFor="email-alerts" mb="0">
-                Friends?
-              </FormLabel>
-              <Switch
-                id="email-alerts"
-                size="lg"
+          <VStack pt={8} gap={4}>
+            <Heading size="lg">Selected user</Heading>
+            <User user={user} />
+            <SimpleGrid columns={2}>
+              <Toggle
+                label="Friends?"
                 isChecked={user.isFriend}
-                onChange={async (e) => {
+                onChange={async (checked) => {
                   setIsLoading(true);
                   const updatedUser = await client.user.setFriend.mutate({
                     userId: user.id,
-                    isFriend: e.target.checked,
+                    isFriend: checked,
                   });
                   setUser(updatedUser);
                   setIsLoading(false);
                 }}
               />
-            </FormControl>
+              <Toggle
+                label="Best Friends?"
+                isChecked={user.isBestFriend}
+                onChange={async (checked) => {
+                  setIsLoading(true);
+                  const updatedUser = await client.user.setBestFriend.mutate({
+                    userId: user.id,
+                    isBestFriend: checked,
+                  });
+                  setUser(updatedUser);
+                  setIsLoading(false);
+                }}
+              />
+            </SimpleGrid>
             {isLoading && <Spinner />}
           </VStack>
         )}

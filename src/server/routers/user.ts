@@ -18,6 +18,7 @@ const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
   name: true,
   avatar: true,
   isFriend: true,
+  isBestFriend: true,
 });
 
 export const userRouter = t.router({
@@ -46,6 +47,16 @@ export const userRouter = t.router({
       await waitAndMaybeThrowError();
       return prisma.user.update({
         data: { isFriend },
+        where: { id: userId },
+      });
+    }),
+  setBestFriend: t.procedure
+    .input(z.object({ userId: z.string(), isBestFriend: z.boolean() }))
+    .mutation(async ({ input }) => {
+      const { userId, isBestFriend } = input;
+      await waitAndMaybeThrowError();
+      return prisma.user.update({
+        data: { isBestFriend },
         where: { id: userId },
       });
     }),
