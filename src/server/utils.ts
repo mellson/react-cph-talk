@@ -5,7 +5,7 @@ const randomNumberInInterval = (min: number, max: number) => {
 const snooze = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-const didThisError = () => Math.random() < 0.15; //15% probability of getting true
+const didThisError = () => Math.random() < 0.55; //15% probability of getting true
 
 export const waitAndMaybeThrowError = async (
   min: number,
