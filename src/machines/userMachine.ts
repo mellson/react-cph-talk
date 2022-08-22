@@ -8,7 +8,7 @@ interface FriendStatus {
   isBestFriend: boolean;
 }
 
-/** @xstate-layout N4IgpgJg5mDOIC5QFVZgE4AICyBDAxgBYCWAdmAHQCSEANmAMQDKYALpgI4CuGAnoqAAOAe1jFWxYaQEgAHogC0AVgAsAJgoBGNUoAMAdnUAOIypVG1AGhD8EagMwUjATnub9qlft321u1wC+AdaoGDgEJOQULLjoRGRQmABmwlhcaOiwDBBSlGQAbsIA1pShWHjxUTFxkYkpaRmwCAXC+LgSUgDaugC6MiJiHdJIcoiamlpGAGwqurpKhkoOmvYq1rYKmrpTFA5qRro6ms46KvZGQSEZ4ZWU1ZV1qZjpGFkY6KkUgrTt9QC2FDKN0idzAsQeySeL0yzVIhTaQ26fRGA3EkmGoHkCAUai8uwWalcUymmjOqiM60Qzl0FCWUzU+iMxymJhWF2CICBFRB0UIwgA7glno1mGB6Ph2ND+qI0VIZFjZvotCpNAcXEolKqVVNKdjphR9L4mQt7JrNCy1JdOdduWQ7nzBaREu9UgwAML0WKYF3oaWDdHyxTEjT2bZzQma+z0qw2RCmnZ6fYqakM5zJ5xWrkRO28gXCjCi9hJdDEMCkCCYWCsdrpP2yjGjBDnZy0-xhi2aJRTey6ky7IxLfQsqbeNPmTM27NVNgSJ3JEtlitVmtZHJRFolQGT27RGdC4ul8uV6usdKw+HtdFIutDQMIElK3RMqa6WY+ak62MINO0llmKZdmqPiWhyWY7iwrCznUC5Hsup5vOgHzoF8PysP8W5hLa06QfuMFLieZ4tAiV69DeAYjFiJI0lGSZGPoxxeFMzi6g4jjhqYr4qCOPj2BOmFTpQAAiYAAEbCFwpD4AkorgoQZFyhRiirCoFBmHozjOKS4yGDMuqbNsuy+IyL7zCqqx8eUAkUMJYkSVJTqFpwPDoLYQgyreinYioqgUBpbjOBaSgBdselcU4Sz+NMJi6NoqhTEEHKkMIEBwDIYE8jQ9DyQ2WLKDo-aad5fnOBSX6bNohn7DFqreDMSjslc-HgWCNT7lCjTZXeOLjBQr7dkFDjOPR0xrGVWxKriphKEaT5cbxoHbjyTAOkK0LwCi7nkZiiB+Eq5yqiV0XeXVeknAaRruBqnbqAsFnAjmy0CkKPqdZ5Cj2N4vn6Li6Y3bMo22B9NLsfY9gaV2JLxQtTVLQ6+a+ht-oKdtCCzEYvUeGcGnGiOpUbDSA5qOM5wHDpOgnHdWGgjhc4Houx4rq9KOrDskXqvRtE9l+7jo6OOjDVGSwmJTVk2eJkkJEzjbvQBhmHJDcwfSYuruE4rh+Oar7OF2l0i7cUu5cOFChiZEYrNGelapV+gBUFJw-fNQRAA */
+/** @xstate-layout N4IgpgJg5mDOIC5QFVZgE4AICyBDAxgBYCWAdmAHQCSEANmAMQDKYALpgI4CuGAnoqAAOAe1jFWxYaQEgAHogC0AVgAsAJgoBGNUoAMAdnUAOIypVG1AGhD8EagMwUjATnub9qlft321u1wC+AdaoGDgEJOQUACJgAEbCXKT4ZFDMYLjoRDIiYhJSMvIICvZmFGZ6zs6aKpruKgBsKta2Cpq6DRQOavpGDbq6qpqlQSFoWHhEZJSxCUkppGks7Nx8OaLiktJIcooqqhRVbs4NFkonHS17nUZKfs59Jrraqg2jIKETEdMx8YnJqQYslgrFwrEouAAZuD0AAKewDACUDE+4SmUVm-wWUHWeS2hUUmhchzUwyUQxc+l8DSuxT8jgazlJ9iqDTUVU0d3eqMmkUoLEy6KgmEhwiwXHGsAYECklDIADdhABrSg875RAVZSLC0XiyUIBXCfBgrYAbV0AF1cZsCjsigpOn4lIZTLVqr4+rS2sS1OZGro1KdanUjNzxmi+RRNUKRWLMBKMFKMOgxRRBLQwbqALYUNXo-kZLWpWN6xMG0iK435Ujmq07XI27age2+-RdZ3HNSkqlGWmaBqaLoufu1fRqUwNZ1hsK8n5MQjCADuxYT6ClLHo+HYq+t1YJCBUuhUWmdjWc5iUDX0+ivXvpFBdjS7N50SmnX3zUYXy8W8cl6RWHh0FsIQNj3O1EC7Y8jz8RpGSMDxen0WljxZNxbl0IxOTMfpQ2CD5w1nDVv2LZMxQYABhehMkwMj0F3fEIOKBoGkcUpySvI9fCUexkJsRAKi6ewsMGIwWUwkd3wjOdvz-DAAJFdBiDAUgIEwEEwQlBjbWbRBhOcCg9BcRp3CODoaX4hBhlQppyROXjqhUewpKI-lZNXBTVmA7Sm12BAsKcJQ6jZdkansIKLNsNktH0TlejcAYHg8Fz1QLVgJF-SElJUtSNNYCVpVlChDRVXNCNSqM2AynVstU9TQXy2By0rE0pFrHz9wHNsJP6Q8fGcS5LPPQyg0aS8jEwnw1BSz9lmqxTlLqvKCrotMM1YbMypnCq5uLLLFtyhqJWao1WprS0OqYgddAoew2VMBDNHPG9nFpBxHAGcdDxw7x7Gc95SGECA4BkPNIxoehLt04o7iUIdHPOVwHi9OoNG6CaQ28Wy8LGbbP0xeZUihvySknISAwHfofF6XtLPcJxXD8fsj2cS93DffCwbnQsY11OS12Jls6goI9WPOBxnFivpmkstoDC6P0ePHTDGn+3GP0jeclxXSVBcg+XhKJB4nn2WyvSZB8PXZoLVB0fQZs1kjfzovXil4jRniZw9Sicp6UKUIxLYmgaJqvVxeIdmSl3513D0DgxVBZB5OSvWnWhu25SWGJ5DDZcXI41Kq9tqw7NPgeswMY6HSk6fwTFKBCvGeVQ3pvco+gRPq-vZN5OfK-NXYdBDbv2S9vCcnReLvDwHz9Jo7uExD7aCAIgA */
 export const userMachine = createMachine(
   {
     context: { query: '', numberOfRetries: 0 },
@@ -48,6 +48,11 @@ export const userMachine = createMachine(
         },
       },
       Debouncing: {
+        after: {
+          '300': {
+            target: 'Searching for users',
+          },
+        },
         on: {
           Search: {
             target: 'Searching for users',
@@ -56,7 +61,6 @@ export const userMachine = createMachine(
             actions: 'setQuery',
           },
         },
-        after: { 300: 'Searching for users' },
       },
       'Searching for users': {
         invoke: {
@@ -72,6 +76,7 @@ export const userMachine = createMachine(
               actions: ['increaseNumberOfRetries', 'setErrorMessage'],
               cond: 'canRetry',
               target: 'Searching for users',
+              internal: false,
             },
             {
               actions: 'setErrorMessage',
@@ -126,6 +131,7 @@ export const userMachine = createMachine(
               actions: ['increaseNumberOfRetries', 'setErrorMessage'],
               cond: 'canRetry',
               target: 'Setting friend status',
+              internal: false,
             },
             {
               target: 'Showing error',
