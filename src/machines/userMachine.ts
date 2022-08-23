@@ -8,7 +8,7 @@ interface FriendStatus {
   isBestFriend: boolean;
 }
 
-/** @xstate-layout N4IgpgJg5mDOIC5QFVZgE4AICyBDAxgBYCWAdmAHQCSEANmAMQDKYALpgI4CuGAnoqAAOAe1jFWxYaQEgAHogC0AVgAsAJgoBGNUoAMAdnUAOIypVG1AGhD8EagMwUjATnub9qlft321u1wC+AdaoGDgEJOQUACJgAEbCXKT4ZFDMYLjoRDIiYhJSMvIICvZmFGZ6zs6aKpruKgBsKta2Cpq6DRQOavpGDbq6qpqlQSFoWHhEZJSxCUkppGks7Nx8OaLiktJIcooqqhRVbs4NFkonHS17nUZKfs59Jrraqg2jIKETEdMx8YnJqQYslgrFwrEouAAZuD0AAKewDACUDE+4SmUVm-wWUHWeS2hUUmhchzUwyUQxc+l8DSuxT8jgazlJ9iqDTUVU0d3eqMmkUoLEy6KgmEhwiwXHGsAYECklDIADdhABrSg875RAVZSLC0XiyUIBXCfBgrYAbV0AF1cZsCjsigpOn4lIZTLVqr4+rS2sS1OZGro1KdanUjNzxmi+RRNUKRWLMBKMFKMOgxRRBLQwbqALYUNXo-kZLWpWN6xMG0iK435Ujmq07XI27age2+-RdZ3HNSkqlGWmaBqaLoufu1fRqUwNZ1hsK8n5MQjCADuxYT6ClLHo+HYq+t1YJCBUuhUWmdjWc5iUDX0+ivXvpFBdjS7N50SmnX3zUYXy8W8cl6RWHh0FsIQNj3O1EC7Y8jz8RpGSMDxen0WljxZNxbl0IxOTMfpQ2CD5w1nDVv2LZMxQYABhehMkwMj0F3fEIOKBoGkcUpySvI9fCUexkJsRAKi6ewsMGIwWUwkd3wjOdvz-DAAJFdBiDAUgIEwEEwQlBjbWbRBhOcCg9BcRp3CODoaX4hBhlQppyROXjqhUewpKI-lZNXBTVmA7Sm12BAsKcJQ6jZdkansIKLNsNktH0TlejcAYHg8Fz1QLVgJF-SElJUtSNNYCVpVlChDRVXNCNSqM2AynVstU9TQXy2By0rE0pFrHz9wHNsJP6Q8fGcS5LPPQyg0aS8jEwnw1BSz9lmqxTlLqvKCrotMM1YbMypnCq5uLLLFtyhqJWao1WprS0OqYgddAoew2VMBDNHPG9nFpBxHAGcdDxw7x7Gc95SGECA4BkPNIxoehLt04o7iUIdHPOVwHi9OoNG6CaQ28Wy8LGbbP0xeZUihvySknISAwHfofF6XtLPcJxXD8fsj2cS93DffCwbnQsY11OS12Jls6goI9WPOBxnFivpmkstoDC6P0ePHTDGn+3GP0jeclxXSVBcg+XhKJB4nn2WyvSZB8PXZoLVB0fQZs1kjfzovXil4jRniZw9Sicp6UKUIxLYmgaJqvVxeIdmSl3513D0DgxVBZB5OSvWnWhu25SWGJ5DDZcXI41Kq9tqw7NPgeswMY6HSk6fwTFKBCvGeVQ3pvco+gRPq-vZN5OfK-NXYdBDbv2S9vCcnReLvDwHz9Jo7uExD7aCAIgA */
+/** @xstate-layout N4IgpgJg5mDOIC5QFVZgE4AICyBDAxgBYCWAdmAHQCSEANmAMQDKYALpgI4CuGAnoqAAOAe1jFWxYaQEgAHogC0AVgAsAJgoBGNUoAMAdnUAOIypVG1AGhD8EagMwUjATnub9qlft321u1wC+AdaoGDgEJOQUACJgAEbCXKT4ZFDMYLjoRDIiYhJSMvIICvZmFGZ6zs6aKpruKgBsKta2Cpq6DRQOavpGDbq6qpqlQSFoWHhEZJSxCUkppGks7Nx8OaLiktJIcooqqhRVbs4NFkonHS17nUZKfs59Jrraqg2jIKETEdMx8YnJqQYslgrFwrEouAAZuD0AAKewDACUDE+4SmUVm-wWUHWeS2hUUmhchzUwyUQxc+l8DSuxT8jgazlJ9iqDTUVU0d3eqMmkUoTEIwgA7qlMFxxrB0vR8OxxRhcZsCjsiipdCotEpDIzzEoGvp9HraQp6RRDKY2T02eTueM0XyKALhaK5ehJctODx0LYhBt8ttQEU1Gp1Wq-I1GUYPL19LT1Sy3LddEZOWZ+kYbWFeT9HSLFpgMOhhOgGABheiZfPoQvoBV+gnFBoNRylcl6tW+JT2GM2RAVLr2ZODIwspOaJoZr7o-mCoVi8bpdiQ9DEMCkCCYEFg8W1-HKxAD5wUPQuRruI4dGk9hDDONNcknLvVFT2Cd27MzucYBcetY7XKK-1dgQZMnCUOoLSfewwMvWw2S0fROV6NwBgeDxXyzKIWEydEoEwSEi0-V0GAgKRKDIAA3YQAGtKB5b5MIyLJIlw-CsBdWAEAo4R8DBLYAG1dAAXR3JUA0UTo-E1cwzE0apfD6I0iUPYNzV0NRTlqOp02CD5bQw-lGJwvCCPYhgCyLChBFoMFWIAWwoOipwdQzmOMtiJU40hKJ4v0BOEv9fV3MS6S8LpNWOIN3AHWkx00LoXDHWp9DUc1NXQ+iDOw1zWMIyVgVBcEKChGFYX6JEUT0jLnKy0UcvYkTAKKdpHAsZwfGSpRTE1VxaT8IwukaQxnEMBFTANdKnOWCQ8yXFc1w3ArxWI0iKC4miHMqya2Gmljl1XddN1YcVPO83ipD8hr6wadwKFHfpVR8NqYMQZx1V1UxGnepMfDUCb7Sm2q9vmw6lvM9BLOs1g7I2zMqoBmagYOxaOK4nz+KEy69wQa7dAoew2VMSNZK8RlevsRwBhS1VU28cm-uzbbAbmpGtzyw6IWhDBSoGXRkUc-7GYR5mFtZzHgu0DRugGZ8KnMFlaRbJx8ceFLHrHIIdNIYQIDgGR+Z+Gh6DFoDlB0eKn3OVwHkU7R+1VrTvDvbSxlhpzMXmVJjaKEoGiUfs1OusquxMGL9CcVw-DHNVnF1dwlHpzCZ2dCUvcQPww4HJSTCMNVdX2I0mVNeS47A1QdH0BPpydPMwdT4ouw0Z5I9VUpn1k2NOqLnO2pzvVXC7SuHQ-F069VfqDFUFkHk5PUjCNXHblJYYni1HQmUHrCmNqkyU4CvFRJNpfbsaKCmRZBC+maK82gMAauvkpMT43wXduFkH4D3gD61KTp-BMUpIxeGeKoXqBpyh9ARA9cm7I3g6X1uQOuChTgZ32Lqbwz4dBdiND0P2Zp9iRmqOBZwGsAhAA */
 export const userMachine = createMachine(
   {
     context: { query: '', numberOfRetries: 0 },
@@ -62,6 +62,39 @@ export const userMachine = createMachine(
           },
         },
       },
+      'Showing users': {
+        on: {
+          'Select user': {
+            actions: ['selectUser', 'clearUsers', 'clearQuery'],
+            target: 'Show user',
+          },
+          'Set query': {
+            actions: 'setQuery',
+            target: 'Debouncing',
+          },
+        },
+      },
+      'Showing error': {
+        on: {
+          'Clear error': {
+            actions: 'resetNumberOfRetries',
+            target: 'Idle',
+          },
+        },
+      },
+      'Showing timeout error': {},
+      'Show user': {
+        on: {
+          'Set friend status': {
+            actions: 'setFriendStatus',
+            target: 'Setting friend status',
+          },
+          'Set query': {
+            actions: ['setQuery', 'clearUser'],
+            target: 'Debouncing',
+          },
+        },
+      },
       'Searching for users': {
         invoke: {
           src: 'search',
@@ -84,36 +117,9 @@ export const userMachine = createMachine(
             },
           ],
         },
-      },
-      'Showing users': {
-        on: {
-          'Select user': {
-            actions: ['selectUser', 'clearUsers', 'clearQuery'],
-            target: 'Show user',
-          },
-          'Set query': {
-            actions: 'setQuery',
-            target: 'Debouncing',
-          },
-        },
-      },
-      'Showing error': {
-        on: {
-          'Clear error': {
-            actions: 'resetNumberOfRetries',
-            target: 'Idle',
-          },
-        },
-      },
-      'Show user': {
-        on: {
-          'Set friend status': {
-            actions: 'setFriendStatus',
-            target: 'Setting friend status',
-          },
-          'Set query': {
-            actions: ['setQuery', 'clearUser'],
-            target: 'Debouncing',
+        after: {
+          '6000': {
+            target: 'Showing timeout error',
           },
         },
       },
@@ -137,6 +143,11 @@ export const userMachine = createMachine(
               target: 'Showing error',
             },
           ],
+        },
+        after: {
+          '6000': {
+            target: 'Showing timeout error',
+          },
         },
       },
     },

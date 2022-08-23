@@ -21,6 +21,16 @@ const IndexPage: NextPageWithLayout = () => {
 
   return (
     <>
+      {state.matches('Showing timeout error') && (
+        <Alert status="warning">
+          <AlertIcon />
+          Timeout 😿 The server is not responding, please refresh the page and
+          try again.
+          <Button ml={2} size="sm" onClick={() => window.location.reload()}>
+            Refresh page
+          </Button>
+        </Alert>
+      )}
       {state.matches('Showing error') && (
         <Alert status="error">
           <AlertIcon />

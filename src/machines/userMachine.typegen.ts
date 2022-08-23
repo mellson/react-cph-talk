@@ -24,6 +24,12 @@ export interface Typegen0 {
     'xstate.after(300)#User Machine.Debouncing': {
       type: 'xstate.after(300)#User Machine.Debouncing';
     };
+    'xstate.after(6000)#User Machine.Searching for users': {
+      type: 'xstate.after(6000)#User Machine.Searching for users';
+    };
+    'xstate.after(6000)#User Machine.Setting friend status': {
+      type: 'xstate.after(6000)#User Machine.Setting friend status';
+    };
     'xstate.init': { type: 'xstate.init' };
   };
   invokeSrcNameMap: {
@@ -79,6 +85,7 @@ export interface Typegen0 {
     | 'Setting friend status'
     | 'Show user'
     | 'Showing error'
+    | 'Showing timeout error'
     | 'Showing users';
   tags: never;
 }
