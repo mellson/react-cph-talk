@@ -6,7 +6,7 @@ The repo's `main` branch contains the app's boilerplate, leaving it up to you to
 
 ## Requirements
 
-1. Make it possible to mark a user as a friend and best friend.
+1. Make it possible to mark a user as a friend, or a best friend.
 2. Handle possible errors.
 3. Add retry logic.
 4. Debounce the search query.
